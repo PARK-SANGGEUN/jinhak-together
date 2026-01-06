@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>(공지필독)진학지도를 위한 소통방 서재 v1.</title>
+
+<style>
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:"Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:radial-gradient(circle at 0% 0%, #f6fbff 0, #eef3ff 45%, #ffffff 100%);
+  color:#222;
+}
+
+/* ===== 헤더 ===== */
+.header{
+  text-align:center;
+  padding:18px 10px 4px;
+  font-weight:900;
+  font-size:26px;
+}
+.header-sub{
+  text-align:center;
+  font-size:13px;
+  color:#666;
+  margin-bottom:16px;
+}
+
+/* ===== 전체 컨테이너 ===== */
+.section{
+  max-width:1250px;
+  margin:0 auto 36px;
+  padding:0 12px;
+}
+
+/* ===== 섹션 타이틀 ===== */
+.section-title{
+  font-size:17px;
+  font-weight:900;
+  margin:8px 4px 12px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.section-title::before{
+  content:"";
+  width:6px;
+  height:18px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#ff7b8a,#ffb36b);
+}
+
+/* ===== 3단 책장 래퍼 ===== */
+.bookshelf-wrapper{
+  display:grid;
+  gap:36px;
+}
+
+/* ===== 각 단(선반) ===== */
+.shelf{
+  position:relative;
+  background:linear-gradient(145deg,#d9b78c,#bb8c5c);
+  border-radius:22px;
+  padding:20px 20px 22px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+  box-shadow:
+    0 18px 28px rgba(0,0,0,.28),
+    inset 0 0 0 1px rgba(255,255,255,.35);
+  overflow:hidden;
+}
+
+/* 선반 밑 받침대(입체) */
+.shelf::after{
+  content:"";
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:-18px;
+  height:22px;
+  background:linear-gradient(180deg,#b07641,#7c4b23);
+  border-radius:0 0 20px 20px;
+  box-shadow:0 10px 26px rgba(0,0,0,.55);
+}
+
+/* Spotlight 조명 */
+.shelf::before{
+  content:"";
+  position:absolute;
+  inset:-40% -10% auto;
+  height:180%;
+  background:
+    radial-gradient(circle at 20% -10%, rgba(255,255,255,.78), transparent 60%),
+    radial-gradient(circle at 80% -20%, rgba(255,255,255,.55), transparent 55%);
+  mix-blend-mode:screen;
+  opacity:.55;
+  animation:shelfLight 9s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes shelfLight{
+  0%   { transform:translateX(-8%); opacity:.45; }
+  40%  { transform:translateX(4%);  opacity:.75; }
+  100% { transform:translateX(14%); opacity:.45; }
+}
+
+/* ===== 책(더 두꺼운 3D 느낌) ===== */
+.book{
+  position:relative;
+  height:200px;
+  background:#ffffff;
+  border-radius:18px;
+  overflow:hidden;
+  cursor:pointer;
+
+  /* 책 두께감 + 둥근 하드커버 느낌 */
+  box-shadow:
+    6px 0 0 0 #dcdcdc,
+    0 10px 22px rgba(0,0,0,.28),
+    inset 0 0 0 1px rgba(255,255,255,.65);
+
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+
+/* hover 시 더 두꺼워 보이게 */
+.book:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    10px 0 0 0 #d0d0d0,
+    0 18px 32px rgba(0,0,0,.32),
+    inset 0 0 0 1px rgba(255,255,255,.75);
+}
+
+/* ====== 책 옆면 두께(강조 업그레이드) ====== */
+.book::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-10px;
+  bottom:0;
+  width:40px;
+  border-radius:18px 0 0 18px;
+  background:linear-gradient(
+    90deg,
+    #bfbfbf 0%,
+    #e7e7e7 20%,
+    #ffffff 55%,
+    #d6d6d6 100%
+  );
+  box-shadow:inset -4px 0 6px rgba(0,0,0,.25);
+}
+
+/* 책 밑 그림자 */
+.book::after{
+  content:"";
+  position:absolute;
+  left:8%;
+  right:8%;
+  bottom:-16px;
+  height:24px;
+  background:radial-gradient(ellipse at center, rgba(0,0,0,.35) 0, rgba(0,0,0,0) 70%);
+  filter:blur(2px);
+}
+
+/* 표지 이미지 */
+.book img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* 라벨 */
+.label{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:8px 10px 10px;
+  font-size:13px;
+  font-weight:700;
+  color:#ffffff;
+  background:linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,0));
+}
+
+/* COMING SOON */
+.coming{
+  background:repeating-linear-gradient(
+    135deg,
+    #ffe7bb,
+    #ffe7bb 12px,
+    #ffd89a 12px,
+    #ffd89a 24px
+  );
+  color:#444;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:18px;
+}
+.coming::before{
+  content:"COMING SOON";
+}
+
+/* 반응형 */
+@media(max-width:768px){
+  .header{font-size:22px;}
+  .book{height:170px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">📚 (공지필독)진학지도를 위한 소통방 서재 v1.</div>
+<div class="header-sub">진학지도에 꼭 필요한 자료만 모은 공동 서재입니다.</div>
+
+<div class="section">
+
+<div class="section-title">🎓 대입 자료</div>
+
+<!-- ================= 3단 책장 ================= -->
+<div class="bookshelf-wrapper">
+
+<!-- 1단 -->
+<div class="shelf">
+  <a class="book" href="https://park-sanggeun.github.io/susi-3years-tower/" target="_blank">
+    <img src="어디가3개년타워.png">
+    <div class="label">어디가 3개년 타워</div>
+  </a>
+
+  <a class="book" href="https://drive.google.com/file/d/1rFWrf0_-IIiJvg-ifFYfRzHlznFVZAhs/view?usp=drive_link" target="_blank">
+    <img src="2026수도권전문대정시검색기.png">
+    <div class="label">2026 수도권 전문대 정시 검색기</div>
+  </a>
+
+  <a class="book" href="https://docs.google.com/spreadsheets/d/1Wikdd4JxmjyQJ0HRaR_oasiorSnxqPm7-j0GMVXPbLA/edit?usp=sharing" target="_blank">
+    <img src="2026정시경쟁률(서울수도권33개대).png">
+    <div class="label">2026 정시 경쟁률 (서울·수도권 33개대)</div>
+  </a>
+</div>
+
+<!-- 2단 -->
+<div class="shelf">
+  <a class="book" href="https://drive.google.com/file/d/1E_JaNsnm4jbz6Cv9Kh2biym87Ydqe5jy/view?usp=sharing" target="_blank">
+    <img src="2027학년도 대입전형의 이해와 대비.png">
+    <div class="label">2027학년도 대입전형의 이해와 대비</div>
+  </a>
+
+  <a class="book" href="https://drive.google.com/file/d/1XLEknWXIWdJeDZK04CM1ckH19xs0rewD/view?usp=sharing" target="_blank">
+    <img src="2028대입정보제공설명회.png">
+    <div class="label">2028 대입정보 제공설명회</div>
+  </a>
+
+  <a class="book" href="https://drive.google.com/file/d/1_u0mRpkqQFo2rMorIAf0khZPV1WAyQN1/view?usp=sharing" target="_blank">
+    <img src="2028모집단위별반영과목.png">
+    <div class="label">2028 모집단위별 반영·권장과목 자료집</div>
+  </a>
+</div>
+
+<!-- 3단 -->
+<div class="shelf">
+  <a class="book" href="https://docs.google.com/spreadsheets/d/1FLHEfk9e5658zZnNZ6k41IbSzyc8B9p97AlimUW0uss/edit?usp=sharing" target="_blank">
+    <img src="2025학년도추가모집대학별선발현황.png">
+    <div class="label">2025학년도 추가모집 대학별 선발현황</div>
+  </a>
+
+  <div class="book coming"></div>
+  <div class="book coming"></div>
+</div>
+
+</div><!-- /bookshelf-wrapper -->
+
+</div><!-- /section -->
+
+</body>
+</html>
